@@ -8,7 +8,7 @@ from tinydb import TinyDB, Query
 from asyncio import sleep as async_sleep
 
 bot = commands.Bot(command_prefix='$', help_command = None, intents = discord.Intents.all())
-slash = SlashCommand(bot)
+# slash = SlashCommand(bot)
 db = TinyDB("people_in_debt.json")
 debtors = Query()
 
