@@ -12,11 +12,6 @@ bot = commands.Bot(command_prefix='$', help_command = None, intents = discord.In
 db = TinyDB("people_in_debt.json")
 debtors = Query()
 
-@slash.slash(name="test")
-async def _test(ctx: SlashContext):
-    embed = discord.Embed(title="embed test")
-    await ctx.send(content="test", embeds=[embed])
-
 @bot.command()
 async def register(ctx, user=None):
   if user is None:
