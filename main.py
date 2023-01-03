@@ -5,7 +5,6 @@ import nextcord
 from keep_alive import keep_running
 from tinydb import TinyDB, Query
 from asyncio import sleep as async_sleep
-from typing import Optional
 
 bot = commands.Bot(help_command=None)
 db = TinyDB("people_in_debt.json")
@@ -47,8 +46,9 @@ class betconfirmation(nextcord.ui.View):
         self.player2 = plyr2
 
     @nextcord.ui.button(label="Confirm", style=nextcord.ButtonStyle.green)
-    async def confirm(self, button: nextcord.ui.Button,
-                      interaction: nextcord.Interaction):
+    async def confirm(self, button: nextcord.ui.Button,interaction: nextcord.Interaction):
+        if interaction.user != self.player1 and  interaction.user != self.player2:
+            return
         if interaction.user == self.player1:
             self.confirm1 = True
         if interaction.user == self.player2:
@@ -57,13 +57,16 @@ class betconfirmation(nextcord.ui.View):
             self.stop()
 
     @nextcord.ui.button(label="Cancel", style=nextcord.ButtonStyle.red)
-    async def cancel(self, button: nextcord.ui.Button,
-                     interaction: nextcord.Interaction):
+    async def cancel(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+                    
+        if interaction.user != self.player1 and interaction.user != self.player2:
+            return
         if interaction.user == self.player1:
             self.confirm1 = False
         if interaction.user == self.player2:
             self.confirm2 = False
         self.stop()
+
 
 
 class slvview(nextcord.ui.View):
